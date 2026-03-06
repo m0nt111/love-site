@@ -1,83 +1,266 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Для моей любимой ❤️</title>
+<title>8 марта ❤️</title>
 
 <style>
 
 body{
 margin:0;
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+background:#fff0f5;
 font-family:Arial;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
-color:white;
-text-align:center;
 overflow:hidden;
 }
 
-button{
-padding:15px 30px;
-font-size:20px;
-border:none;
-border-radius:30px;
-margin:10px;
-cursor:pointer;
+.container{
+display:flex;
+height:100vh;
+align-items:center;
+justify-content:space-between;
+padding:60px;
 }
 
-#yes{
-background:white;
-color:#ff4d6d;
+/* текст слева */
+
+.left{
+width:40%;
+color:#333;
 }
 
-#no{
-background:black;
-color:white;
-position:absolute;
-}
-
-#message{
-display:none;
+#timer{
 font-size:28px;
-margin-top:30px;
+margin-bottom:30px;
+}
+
+#text{
+font-size:22px;
+line-height:1.6;
+}
+
+/* дерево */
+
+.right{
+position:relative;
+width:60%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.tree{
+position:relative;
+width:200px;
+height:400px;
+transform-origin:bottom;
+animation:moveTree 3s forwards;
+animation-delay:4s;
+}
+
+/* ствол */
+
+.trunk{
+position:absolute;
+bottom:0;
+left:50%;
+width:6px;
+height:0;
+background:#5b3a29;
+transform:translateX(-50%);
+animation:growTrunk 2s forwards;
+}
+
+/* ветки */
+
+.branch{
+position:absolute;
+width:80px;
+height:4px;
+background:#5b3a29;
+opacity:0;
+}
+
+.branch.left{
+bottom:160px;
+left:50%;
+transform-origin:right;
+transform:rotate(-30deg);
+animation:showBranch 1s forwards;
+animation-delay:2s;
+}
+
+.branch.right{
+bottom:220px;
+left:50%;
+transform-origin:left;
+transform:rotate(30deg);
+animation:showBranch 1s forwards;
+animation-delay:2.5s;
+}
+
+/* сердечки */
+
+.heart{
+position:absolute;
+font-size:24px;
+opacity:0;
+}
+
+.heart1{
+bottom:240px;
+left:40%;
+animation:showHeart 1s forwards;
+animation-delay:3s;
+}
+
+.heart2{
+bottom:200px;
+left:60%;
+animation:showHeart 1s forwards;
+animation-delay:3.3s;
+}
+
+/* падающие сердечки */
+
+.fall{
+position:absolute;
+font-size:20px;
+left:50%;
+top:180px;
+animation:fall 4s infinite;
+animation-delay:5s;
+}
+
+/* анимации */
+
+@keyframes growTrunk{
+0%{height:0}
+100%{height:260px}
+}
+
+@keyframes showBranch{
+to{opacity:1}
+}
+
+@keyframes showHeart{
+to{opacity:1}
+}
+
+@keyframes moveTree{
+to{transform:translateX(120px)}
+}
+
+@keyframes fall{
+0%{
+transform:translate(0,0);
+opacity:1;
+}
+100%{
+transform:translate(-250px,250px);
+opacity:0;
+}
 }
 
 </style>
-
 </head>
+
 
 <body>
 
-<h1>С 8 марта 🌸</h1>
-<h2>Ты знаешь что я тебя люблю? ❤️</h2>
+<div class="container">
 
-<button id="yes" onclick="show()">Да</button>
-<button id="no" onmouseover="move()">Нет</button>
+<div class="left">
 
-<div id="message">
-💌  
-Ты самая прекрасная девушка  
-Спасибо что ты есть в моей жизни  
+<div id="timer"></div>
 
-❤️ Я тебя люблю ❤️
+<div id="text"></div>
+
 </div>
+
+
+<div class="right">
+
+<div class="tree">
+
+<div class="trunk"></div>
+
+<div class="branch left"></div>
+<div class="branch right"></div>
+
+<div class="heart heart1">❤️</div>
+<div class="heart heart2">❤️</div>
+
+<div class="fall">❤️</div>
+
+</div>
+
+</div>
+
+</div>
+
 
 <script>
 
-function show(){
-document.getElementById("message").style.display="block";
+/* таймер отношений */
+
+const startDate = new Date("2025-12-22T00:00:00");
+
+function updateTimer(){
+
+const now = new Date();
+
+let diff = now - startDate;
+
+let days = Math.floor(diff / (1000*60*60*24));
+let hours = Math.floor(diff / (1000*60*60) % 24);
+let minutes = Math.floor(diff / (1000*60) % 60);
+let seconds = Math.floor(diff / 1000 % 60);
+
+document.getElementById("timer").innerHTML =
+`Мы вместе уже ❤️<br>
+${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+
 }
 
-function move(){
-const btn=document.getElementById("no");
+setInterval(updateTimer,1000);
 
-btn.style.left=Math.random()*80+"vw";
-btn.style.top=Math.random()*80+"vh";
+
+
+/* печатающийся текст */
+
+const message = `С 8 марта ❤️
+
+Ты самый дорогой человек
+в моей жизни.
+
+Я очень рад,
+что именно тебя встретил
+22 декабря.
+
+Спасибо за твою улыбку,
+за твою заботу
+и за то что ты рядом.
+
+Я тебя очень люблю ❤️`;
+
+let i = 0;
+
+function typing(){
+
+if(i < message.length){
+
+document.getElementById("text").innerHTML += message.charAt(i);
+
+i++;
+
+setTimeout(typing,50);
+
 }
+
+}
+
+setTimeout(typing,6000);
 
 </script>
 
