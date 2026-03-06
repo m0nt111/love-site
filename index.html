@@ -3,232 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <title>8 марта ❤️</title>
-
 <style>
-
 body{
-margin:0;
-background:#fff0f5;
-font-family:Arial;
-overflow:hidden;
+  margin:0;
+  background:#fff0f5;
+  font-family:Arial;
+  overflow:hidden;
 }
 
 .container{
-display:flex;
-height:100vh;
-align-items:center;
-justify-content:space-between;
-padding:60px;
+  display:flex;
+  height:100vh;
+  align-items:center;
+  justify-content:space-between;
+  padding:40px;
+  box-sizing:border-box;
 }
 
-/* текст слева */
-
 .left{
-width:40%;
-color:#333;
+  width:40%;
+  color:#333;
 }
 
 #timer{
-font-size:28px;
-margin-bottom:30px;
+  font-size:28px;
+  margin-bottom:30px;
 }
 
 #text{
-font-size:22px;
-line-height:1.6;
+  font-size:22px;
+  line-height:1.6;
+  white-space:pre-line;
 }
 
-/* дерево */
-
+/* Правая часть - дерево */
 .right{
-position:relative;
-width:60%;
-height:100%;
-display:flex;
-align-items:center;
-justify-content:center;
+  position:relative;
+  width:55%;
+  height:100%;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
 }
 
-.tree{
-position:relative;
-width:200px;
-height:400px;
-transform-origin:bottom;
-animation:moveTree 3s forwards;
-animation-delay:4s;
+/* SVG дерево */
+.tree-svg{
+  width:200px;
+  height:400px;
+  transform-origin:bottom;
+  animation:moveTree 3s forwards;
+  animation-delay:6s;
 }
-
-/* ствол */
-
-.trunk{
-position:absolute;
-bottom:0;
-left:50%;
-width:6px;
-height:0;
-background:#5b3a29;
-transform:translateX(-50%);
-animation:growTrunk 2s forwards;
-}
-
-/* ветки */
-
-.branch{
-position:absolute;
-width:80px;
-height:4px;
-background:#5b3a29;
-opacity:0;
-}
-
-.branch.left{
-bottom:160px;
-left:50%;
-transform-origin:right;
-transform:rotate(-30deg);
-animation:showBranch 1s forwards;
-animation-delay:2s;
-}
-
-.branch.right{
-bottom:220px;
-left:50%;
-transform-origin:left;
-transform:rotate(30deg);
-animation:showBranch 1s forwards;
-animation-delay:2.5s;
-}
-
-/* сердечки */
 
 .heart{
-position:absolute;
-font-size:24px;
-opacity:0;
+  position:absolute;
+  font-size:20px;
+  opacity:0;
+  animation:appearHeart 1s forwards;
 }
 
-.heart1{
-bottom:240px;
-left:40%;
-animation:showHeart 1s forwards;
-animation-delay:3s;
+.falling-heart{
+  position:absolute;
+  font-size:18px;
+  top:0;
+  opacity:0.8;
+  animation:fall linear infinite;
 }
 
-.heart2{
-bottom:200px;
-left:60%;
-animation:showHeart 1s forwards;
-animation-delay:3.3s;
-}
-
-/* падающие сердечки */
-
-.fall{
-position:absolute;
-font-size:20px;
-left:50%;
-top:180px;
-animation:fall 4s infinite;
-animation-delay:5s;
-}
-
-/* анимации */
-
-@keyframes growTrunk{
-0%{height:0}
-100%{height:260px}
-}
-
-@keyframes showBranch{
-to{opacity:1}
-}
-
-@keyframes showHeart{
-to{opacity:1}
-}
+/* Анимации */
 
 @keyframes moveTree{
-to{transform:translateX(120px)}
+  to{transform:translateX(120px);}
+}
+
+@keyframes appearHeart{
+  to{opacity:1;}
 }
 
 @keyframes fall{
-0%{
-transform:translate(0,0);
-opacity:1;
+  0%{transform:translate(0,0);opacity:1;}
+  100%{transform:translate(-200px,400px);opacity:0;}
 }
-100%{
-transform:translate(-250px,250px);
-opacity:0;
-}
-}
-
 </style>
 </head>
-
-
 <body>
 
 <div class="container">
 
-<div class="left">
+  <div class="left">
+    <div id="timer"></div>
+    <div id="text"></div>
+  </div>
 
-<div id="timer"></div>
+  <div class="right">
+    <!-- SVG дерево -->
+    <svg class="tree-svg" viewBox="0 0 200 400">
+      <g id="tree">
+        <line x1="100" y1="400" x2="100" y2="400" stroke="#5b3a29" stroke-width="6">
+          <animate attributeName="y2" from="400" to="150" dur="2s" fill="freeze"/>
+        </line>
+        <!-- ветки -->
+        <line x1="100" y1="250" x2="60" y2="200" stroke="#5b3a29" stroke-width="4" opacity="0">
+          <animate attributeName="opacity" from="0" to="1" begin="2s" dur="1s" fill="freeze"/>
+        </line>
+        <line x1="100" y1="200" x2="140" y2="160" stroke="#5b3a29" stroke-width="4" opacity="0">
+          <animate attributeName="opacity" from="0" to="1" begin="2.3s" dur="1s" fill="freeze"/>
+        </line>
+        <line x1="140" y1="160" x2="160" y2="130" stroke="#5b3a29" stroke-width="3" opacity="0">
+          <animate attributeName="opacity" from="0" to="1" begin="2.6s" dur="0.8s" fill="freeze"/>
+        </line>
+      </g>
+    </svg>
 
-<div id="text"></div>
+    <!-- Сердечки на ветках -->
+    <div class="heart" style="left:60px; bottom:230px; animation-delay:3s;">❤️</div>
+    <div class="heart" style="left:120px; bottom:180px; animation-delay:3.2s;">❤️</div>
+    <div class="heart" style="left:150px; bottom:130px; animation-delay:3.5s;">❤️</div>
+
+    <!-- Падающие сердечки -->
+  </div>
 
 </div>
-
-
-<div class="right">
-
-<div class="tree">
-
-<div class="trunk"></div>
-
-<div class="branch left"></div>
-<div class="branch right"></div>
-
-<div class="heart heart1">❤️</div>
-<div class="heart heart2">❤️</div>
-
-<div class="fall">❤️</div>
-
-</div>
-
-</div>
-
-</div>
-
 
 <script>
-
-/* таймер отношений */
-
+// Таймер отношений
 const startDate = new Date("2025-12-22T00:00:00");
-
 function updateTimer(){
-
-const now = new Date();
-
-let diff = now - startDate;
-
-let days = Math.floor(diff / (1000*60*60*24));
-let hours = Math.floor(diff / (1000*60*60) % 24);
-let minutes = Math.floor(diff / (1000*60) % 60);
-let seconds = Math.floor(diff / 1000 % 60);
-
-document.getElementById("timer").innerHTML =
-`Мы вместе уже ❤️<br>
-${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
-
+  const now = new Date();
+  let diff = now - startDate;
+  let days = Math.floor(diff / (1000*60*60*24));
+  let hours = Math.floor(diff / (1000*60*60) % 24);
+  let minutes = Math.floor(diff / (1000*60) % 60);
+  let seconds = Math.floor(diff / 1000 % 60);
+  document.getElementById("timer").innerHTML =
+  `Мы вместе уже ❤️<br>${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
 }
-
 setInterval(updateTimer,1000);
 
-
-
-/* печатающийся текст */
-
+// Печатающийся текст
 const message = `С 8 марта ❤️
 
 Ты самый дорогой человек
@@ -243,25 +155,28 @@ const message = `С 8 марта ❤️
 и за то что ты рядом.
 
 Я тебя очень люблю ❤️`;
-
 let i = 0;
-
 function typing(){
-
-if(i < message.length){
-
-document.getElementById("text").innerHTML += message.charAt(i);
-
-i++;
-
-setTimeout(typing,50);
-
+  if(i < message.length){
+    document.getElementById("text").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typing,50);
+  }
 }
+setTimeout(typing,4000);
 
+// Падающие сердечки
+function createFallingHeart(){
+  const heart = document.createElement('div');
+  heart.className = 'falling-heart';
+  heart.innerText = '❤️';
+  heart.style.left = Math.random()*200 + 'px';
+  heart.style.top = '0px';
+  heart.style.animationDuration = (3 + Math.random()*3) + 's';
+  document.querySelector('.right').appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
 }
-
-setTimeout(typing,6000);
-
+setInterval(createFallingHeart,300);
 </script>
 
 </body>
