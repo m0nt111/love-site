@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Для моей любимой ❤️</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+button{
+padding:15px 30px;
+font-size:20px;
+border:none;
+border-radius:30px;
+margin:10px;
+cursor:pointer;
+}
+
+#yes{
+background:white;
+color:#ff4d6d;
+}
+
+#no{
+background:black;
+color:white;
+position:absolute;
+}
+
+#message{
+display:none;
+font-size:28px;
+margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>С 8 марта 🌸</h1>
+<h2>Ты знаешь что я тебя люблю? ❤️</h2>
+
+<button id="yes" onclick="show()">Да</button>
+<button id="no" onmouseover="move()">Нет</button>
+
+<div id="message">
+💌  
+Ты самая прекрасная девушка  
+Спасибо что ты есть в моей жизни  
+
+❤️ Я тебя люблю ❤️
+</div>
+
+<script>
+
+function show(){
+document.getElementById("message").style.display="block";
+}
+
+function move(){
+const btn=document.getElementById("no");
+
+btn.style.left=Math.random()*80+"vw";
+btn.style.top=Math.random()*80+"vh";
+}
+
+</script>
+
+</body>
+</html>
